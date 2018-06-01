@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Geolocation</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <link href="css/salvos.css" rel="stylesheet">
+    <link rel="manifest" href="https://joanamespaque.github.io/biblioteca/manifest.json">
+</head>
+
+<body>
+    <div id="topo">
+        <img src="css/img/LOGO.png" alt="">
+    </div>
+    <div class="bibliotecas">
+
+    </div>
+
+    <a href="geolocation.html">VOLTAR</a>
+    <script src="js/mapa.js"></script>
+    <!-- handlebars -->
+    <script src="js/handlebars.js"></script>
+    <!-- <script src="js/persistencia.js"></script> -->
+    <script src="js/persistencia.js"></script>
+    <script id="source" type="text/x-handlebars-template">
+        <div class="entry">
+            {{#bibliotecas}}
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3>{{nome}}</h3>
+                    <p>
+                        {{endereco}}
+                    <p>
+                </div>
+            </div>
+
+            {{/bibliotecas}}
+    </script>
+    <script>
+        if (Persistencia.existe('bibliotecas')) {
+            var source = document.querySelector("#source").innerHTML;
+            var template = Handlebars.compile(source);
+            var html = template({
+                bibliotecas: Persistencia.carrega('bibliotecas')
+            });
+            document.querySelector('div.bibliotecas').innerHTML = html;
+        }
+    </script>
+
+</body>
+
+</html>

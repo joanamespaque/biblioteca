@@ -21,6 +21,11 @@ self.addEventListener('install', function (event) {
             '/biblioteca/css/img/LOGO.png',
             '/biblioteca/css/img/usuario-marker.png',
             '/biblioteca/js/mapa.js',
+            '/biblioteca/salvos.html',
+            '/biblioteca/js/handlebars.js',
+            '/biblioteca/js/persistencia.js',
+            '/biblioteca/css/salvos.css'
+
           ]);
         });
       })
