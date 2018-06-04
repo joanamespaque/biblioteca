@@ -1,10 +1,10 @@
 {
-  "name": "Biblioteca Geolocationn",
+  "name": "Bibliotecas Geolocation",
+  "short_name": "Bibliotecas",
   "theme_color": "#fcba0f",
   "background_color": "black",
   "display": "fullscreen",
-  "Scope": "/",
-  "start_url": "/https://joanamespaque.github.io/biblioteca/geolocation.html",
+  "start_url": "https://joanamespaque.github.io/biblioteca/geolocation.html",
   "icons": [
     {
       "src": "css/img/icons/icon-72x72.png",
