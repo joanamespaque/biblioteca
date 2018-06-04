@@ -20,7 +20,7 @@
       });
 
       if (navigator.geolocation) {
-        navigator.geolocation.watchPosition(function (position) {
+        navigator.geolocation.getCurrentPosition(function (position) {
           var pos = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
@@ -85,7 +85,7 @@
                   var buttonSalvar = document.querySelector("#salvar");
                   buttonSalvar.addEventListener('click', function (params) {
                     if (localStorage.getItem('bibliotecas') != null) {
-                      if (localStorage.getItem('bibliotecas').indexOf(localStorage.getItem('nome')) === -1) {
+                      if (localStorage.getItem('bibliotecas').indexOf(details.name) === -1) {
                         Persistencia.adiciona(
                           'bibliotecas', {
                             nome: details.name,
@@ -101,37 +101,78 @@
                       localStorage.setItem('nome', details.name);
 
                     }
+                    infoWindow.close();
                   });
                 }
 
-                route(directionsService, directionsDisplay);
+                // route(directionsService, directionsDisplay);
 
-                function route(directionsService, directionsDisplay) {
-                  directionsService.route({
-                    origin: geocodePosition(pos),
-                    destination: details.formatted_address,
-                    travelMode: 'DRIVING'
-                  }, function (response, status) {
-                    if (status === 'OK') {
-                      directionsDisplay.setDirections(response);
-                    } else {
-                      window.alert('Directions request failed due to ' + status);
-                    }
-                  });
-                }
 
+
+                // var enderecoPartida = geocodePosition(pos);
+                // var enderecoChegada = details.formatted_address;
+                // console.log("partida" + enderecoPartida)
+                // console.log("chegada" + enderecoChegada)
+
+                // var request = { // Novo objeto google.maps.DirectionsRequest, contendo:
+                //    origin: enderecoPartida, // origem
+                //    destination: enderecoChegada, // destino
+                //    travelMode: google.maps.TravelMode.DRIVING // meio de transporte, nesse caso, de carro
+                // };
+
+                // directionsService.route(request, function(result, status) {
+                //    if (status == google.maps.DirectionsStatus.OK) { // Se deu tudo certo
+                //       directionsDisplay.setDirections(result); // Renderizamos no mapa o resultado
+                //    }
+                // });
+
+                // function route(directionsService, directionsDisplay) {
+                //   directionsService.route({
+                //     origin: geocodePosition(pos),
+                //     destination: details.formatted_address,
+                //     travelMode: 'DRIVING'
+                //   }, function (response, status) {
+                //     if (status === 'OK') {
+                //       directionsDisplay.setDirections(response);
+                //     } else {
+                //       window.alert('Directions request failed due to ' + status);
+                //     }
+                //   });
+                // }
+                geocodePosition(pos);
                 function geocodePosition(pos) {
+                  var endereco;
                   geocoder.geocode({
                     latLng: pos
                   }, function (responses) {
                     if (responses && responses.length > 0) {
                       usuario_marker.formatted_address = responses[0].formatted_address;
+                      // console.log(responses[0].formatted_address)
+                      var enderecoPartida = responses[0].formatted_address;
+                      var enderecoChegada = details.formatted_address;
+                      console.log("partida" + enderecoPartida)
+                      console.log("chegada" + enderecoChegada)
+
+                      var request = { // Novo objeto google.maps.DirectionsRequest, contendo:
+                        origin: enderecoPartida, // origem
+                        destination: enderecoChegada, // destino
+                        travelMode: google.maps.TravelMode.DRIVING // meio de transporte, nesse caso, de carro
+                      };
+
+                      directionsService.route(request, function (response, status) {
+                        if (status == google.maps.DirectionsStatus.OK) { // Se deu tudo certo
+                          directionsDisplay.setDirections(response); // Renderizamos no mapa o resultado
+                          directionsDisplay.setMap(map);
+                        }
+                      });
+
                     } else {
                       usuario_marker.formatted_address = 'Cannot determine address at this location.';
                     }
                   });
-                  return usuario_marker.formatted_address;
+
                 }
+
               });
               infoWindow.open(map, this);
             });
