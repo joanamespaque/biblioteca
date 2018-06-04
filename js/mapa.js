@@ -61,22 +61,6 @@
               position: place.geometry.location
             });
 
-            // geocodePosition(pos);
-            // function geocodePosition(pos) {
-            //   geocoder.geocode({
-            //     latLng: pos
-            //   }, function(responses) {
-            //     if (responses && responses.length > 0) {
-            //       usuario_marker.formatted_address = responses[0].formatted_address;
-            //     } else {
-            //       usuario_marker.formatted_address = 'Cannot determine address at this location.';
-            //     }
-            //     infoWindow.setContent(usuario_marker.formatted_address + "<br>coordinates: " + usuario_marker.getPosition().toUrlValue(6));
-            //     infoWindow.open(map, usuario_marker);
-            //   });
-            // }
-
-
             google.maps.event.addListener(marker, 'click', function () {
               service.getDetails(place, function (details, status) {
                 if (status === google.maps.places.PlacesServiceStatus.OK) {
@@ -105,40 +89,6 @@
                   });
                 }
 
-                // route(directionsService, directionsDisplay);
-
-
-
-                // var enderecoPartida = geocodePosition(pos);
-                // var enderecoChegada = details.formatted_address;
-                // console.log("partida" + enderecoPartida)
-                // console.log("chegada" + enderecoChegada)
-
-                // var request = { // Novo objeto google.maps.DirectionsRequest, contendo:
-                //    origin: enderecoPartida, // origem
-                //    destination: enderecoChegada, // destino
-                //    travelMode: google.maps.TravelMode.DRIVING // meio de transporte, nesse caso, de carro
-                // };
-
-                // directionsService.route(request, function(result, status) {
-                //    if (status == google.maps.DirectionsStatus.OK) { // Se deu tudo certo
-                //       directionsDisplay.setDirections(result); // Renderizamos no mapa o resultado
-                //    }
-                // });
-
-                // function route(directionsService, directionsDisplay) {
-                //   directionsService.route({
-                //     origin: geocodePosition(pos),
-                //     destination: details.formatted_address,
-                //     travelMode: 'DRIVING'
-                //   }, function (response, status) {
-                //     if (status === 'OK') {
-                //       directionsDisplay.setDirections(response);
-                //     } else {
-                //       window.alert('Directions request failed due to ' + status);
-                //     }
-                //   });
-                // }
                 geocodePosition(pos);
                 function geocodePosition(pos) {
                   var endereco;
@@ -147,18 +97,13 @@
                   }, function (responses) {
                     if (responses && responses.length > 0) {
                       usuario_marker.formatted_address = responses[0].formatted_address;
-                      // console.log(responses[0].formatted_address)
                       var enderecoPartida = responses[0].formatted_address;
                       var enderecoChegada = details.formatted_address;
-                      console.log("partida" + enderecoPartida)
-                      console.log("chegada" + enderecoChegada)
-
                       var request = { // Novo objeto google.maps.DirectionsRequest, contendo:
                         origin: enderecoPartida, // origem
                         destination: enderecoChegada, // destino
                         travelMode: google.maps.TravelMode.DRIVING // meio de transporte, nesse caso, de carro
                       };
-
                       directionsService.route(request, function (response, status) {
                         if (status == google.maps.DirectionsStatus.OK) { // Se deu tudo certo
                           directionsDisplay.setDirections(response); // Renderizamos no mapa o resultado
