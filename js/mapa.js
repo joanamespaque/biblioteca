@@ -20,7 +20,7 @@
       });
 
       if (navigator.geolocation) {
-        navigator.geolocation.watchPosition(function (position) {
+        navigator.geolocation.getCurrentPosition(function (position) {
           var pos = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
@@ -29,7 +29,8 @@
           let usuario_marker = new google.maps.Marker({
             map: map,
             title: 'Você',
-            icon: 'css/img/usuario-marker.png'
+            icon: 'css/img/usuario-marker.png',
+            animation: google.maps.Animation.DROP
           });
 
           usuario_marker.setPosition(pos);
