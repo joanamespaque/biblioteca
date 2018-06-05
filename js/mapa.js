@@ -29,8 +29,7 @@
           let usuario_marker = new google.maps.Marker({
             map: map,
             title: 'Você',
-            icon: 'css/img/usuario-marker.png',
-            animation: google.maps.Animation.DROP
+            icon: 'css/img/usuario-marker.png'
           });
 
           usuario_marker.setPosition(pos);
